@@ -137,7 +137,7 @@ export function ChatRoom({ roomId, me, other, initialMessages }: Props) {
                 {mine && <time className="text-[10px] text-zinc-400">{formatTime(m.created_at, locale)}</time>}
                 <p
                   className={`max-w-[75%] whitespace-pre-wrap break-words rounded-2xl px-3 py-2 text-sm ${
-                    mine ? "rounded-br-sm bg-rose-500 text-white" : "rounded-bl-sm bg-white text-zinc-900 shadow-sm"
+                    mine ? "rounded-br-sm bg-brand-500 text-white" : "rounded-bl-sm bg-white text-zinc-900 shadow-sm"
                   }`}
                 >
                   {m.content}
@@ -172,11 +172,11 @@ export function ChatRoom({ roomId, me, other, initialMessages }: Props) {
           rows={1}
           maxLength={2000}
           placeholder={t.chats.placeholder}
-          className="max-h-32 flex-1 resize-none rounded-xl border border-zinc-300 px-3 py-2 text-sm outline-none focus:border-rose-400 focus:ring-2 focus:ring-rose-100"
+          className="max-h-32 flex-1 resize-none rounded-xl border border-zinc-300 px-3 py-2 text-sm outline-none focus:border-brand-400 focus:ring-2 focus:ring-brand-100"
         />
         <button
           disabled={sending || !draft.trim()}
-          className="rounded-xl bg-rose-500 px-4 text-sm font-medium text-white hover:bg-rose-600 disabled:opacity-50"
+          className="rounded-xl bg-brand-500 px-4 text-sm font-medium text-white hover:bg-brand-600 disabled:opacity-50"
         >
           {t.chats.send}
         </button>

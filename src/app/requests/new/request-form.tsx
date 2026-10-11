@@ -6,7 +6,7 @@ import { useI18n } from "@/i18n/client";
 import { createRequest, type RequestFormState } from "../actions";
 
 const input =
-  "mt-1 w-full rounded-lg border border-zinc-300 bg-white px-3 py-2 text-sm outline-none focus:border-rose-400 focus:ring-2 focus:ring-rose-100";
+  "mt-1 w-full rounded-lg border border-zinc-300 bg-white px-3 py-2 text-sm outline-none focus:border-brand-400 focus:ring-2 focus:ring-brand-100";
 
 export function RequestForm({ defaultLanguages }: { defaultLanguages: string[] }) {
   const { t } = useI18n();
@@ -46,7 +46,7 @@ export function RequestForm({ defaultLanguages }: { defaultLanguages: string[] }
           {LANGUAGE_OPTIONS.map((lang) => (
             <label
               key={lang}
-              className="cursor-pointer rounded-full border border-zinc-300 bg-white px-3 py-1 text-sm has-[:checked]:border-rose-400 has-[:checked]:bg-rose-50 has-[:checked]:text-rose-700"
+              className="cursor-pointer rounded-full border border-zinc-300 bg-white px-3 py-1 text-sm has-[:checked]:border-brand-400 has-[:checked]:bg-brand-50 has-[:checked]:text-brand-700"
             >
               <input
                 type="checkbox"
@@ -76,7 +76,7 @@ export function RequestForm({ defaultLanguages }: { defaultLanguages: string[] }
 
       <button
         disabled={pending}
-        className="h-11 rounded-xl bg-rose-500 font-medium text-white hover:bg-rose-600 disabled:opacity-60"
+        className="h-11 rounded-xl bg-brand-500 font-medium text-white hover:bg-brand-600 disabled:opacity-60"
       >
         {pending ? f.posting : f.post}
       </button>

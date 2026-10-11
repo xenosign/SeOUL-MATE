@@ -23,7 +23,7 @@ export function Avatar({
   }
   return (
     <span
-      className="inline-flex items-center justify-center rounded-full bg-rose-100 font-semibold text-rose-700"
+      className="inline-flex items-center justify-center rounded-full bg-brand-100 font-semibold text-brand-700"
       style={{ width: size, height: size, fontSize: size * 0.4 }}
     >
       {(name || "?").slice(0, 1).toUpperCase()}

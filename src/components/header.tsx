@@ -11,7 +11,7 @@ export async function Header() {
     <header className="sticky top-0 z-10 border-b border-zinc-200 bg-white/80 backdrop-blur">
       <div className="mx-auto flex h-14 max-w-4xl items-center justify-between gap-2 px-4">
         <Link href="/" className="shrink-0 text-lg font-bold tracking-tight">
-          SeOUL<span className="text-rose-500"> MATE</span>
+          SeOUL<span className="text-brand-500"> MATE</span>
         </Link>
         <nav className="flex items-center gap-1 text-sm">
           {profile && (

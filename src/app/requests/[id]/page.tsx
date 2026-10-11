@@ -77,7 +77,7 @@ export default async function RequestDetailPage({ params }: PageProps<"/requests
           {profile.role === "guide" &&
             (request.status === "open" || request.matched_guide_id === profile.id) && (
               <form action={startChat.bind(null, request.id)} className="mt-6">
-                <button className="h-12 w-full rounded-xl bg-rose-500 font-medium text-white hover:bg-rose-600">
+                <button className="h-12 w-full rounded-xl bg-brand-500 font-medium text-white hover:bg-brand-600">
                   {fmt(d.message, { name: request.traveler.display_name })}
                 </button>
               </form>

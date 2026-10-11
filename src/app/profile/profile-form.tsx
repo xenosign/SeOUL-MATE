@@ -6,7 +6,7 @@ import { useI18n } from "@/i18n/client";
 import { updateProfile, type ProfileFormState } from "./actions";
 
 const input =
-  "mt-1 w-full rounded-lg border border-zinc-300 bg-white px-3 py-2 text-sm outline-none focus:border-rose-400 focus:ring-2 focus:ring-rose-100";
+  "mt-1 w-full rounded-lg border border-zinc-300 bg-white px-3 py-2 text-sm outline-none focus:border-brand-400 focus:ring-2 focus:ring-brand-100";
 
 const ROLES = ["traveler", "guide"] as const;
 
@@ -24,7 +24,7 @@ export function ProfileForm({ profile, onboarding }: { profile: Profile; onboard
           {ROLES.map((role) => (
             <label
               key={role}
-              className="cursor-pointer rounded-xl border border-zinc-300 bg-white p-4 has-[:checked]:border-rose-400 has-[:checked]:ring-2 has-[:checked]:ring-rose-100"
+              className="cursor-pointer rounded-xl border border-zinc-300 bg-white p-4 has-[:checked]:border-brand-400 has-[:checked]:ring-2 has-[:checked]:ring-brand-100"
             >
               <input
                 type="radio"
@@ -62,7 +62,7 @@ export function ProfileForm({ profile, onboarding }: { profile: Profile; onboard
           {LANGUAGE_OPTIONS.map((lang) => (
             <label
               key={lang}
-              className="cursor-pointer rounded-full border border-zinc-300 bg-white px-3 py-1 text-sm has-[:checked]:border-rose-400 has-[:checked]:bg-rose-50 has-[:checked]:text-rose-700"
+              className="cursor-pointer rounded-full border border-zinc-300 bg-white px-3 py-1 text-sm has-[:checked]:border-brand-400 has-[:checked]:bg-brand-50 has-[:checked]:text-brand-700"
             >
               <input
                 type="checkbox"

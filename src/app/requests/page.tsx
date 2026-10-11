@@ -25,7 +25,7 @@ export default async function RequestsPage() {
           <h1 className="text-2xl font-bold tracking-tight">{t.requests.myTitle}</h1>
           <Link
             href="/requests/new"
-            className="shrink-0 rounded-xl bg-rose-500 px-4 py-2 text-sm font-medium text-white hover:bg-rose-600"
+            className="shrink-0 rounded-xl bg-brand-500 px-4 py-2 text-sm font-medium text-white hover:bg-brand-600"
           >
             {t.requests.newButton}
           </Link>
@@ -34,7 +34,7 @@ export default async function RequestsPage() {
           {requests.length === 0 ? (
             <Empty>
               {t.requests.emptyMine}{" "}
-              <Link href="/requests/new" className="font-medium text-rose-600 underline">
+              <Link href="/requests/new" className="font-medium text-brand-600 underline">
                 {t.requests.emptyMineLink}
               </Link>
             </Empty>
