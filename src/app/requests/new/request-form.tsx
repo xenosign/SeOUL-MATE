@@ -2,49 +2,46 @@
 
 import { useActionState } from "react";
 import { LANGUAGE_OPTIONS } from "@/lib/types";
+import { useI18n } from "@/i18n/client";
 import { createRequest, type RequestFormState } from "../actions";
 
 const input =
   "mt-1 w-full rounded-lg border border-zinc-300 bg-white px-3 py-2 text-sm outline-none focus:border-rose-400 focus:ring-2 focus:ring-rose-100";
 
 export function RequestForm({ defaultLanguages }: { defaultLanguages: string[] }) {
+  const { t } = useI18n();
+  const f = t.requests.form;
   const [state, action, pending] = useActionState<RequestFormState, FormData>(createRequest, {});
   const today = new Date().toISOString().slice(0, 10);
 
   return (
     <form action={action} className="mt-8 flex flex-col gap-5">
       <label className="text-sm font-medium">
-        Title
-        <input
-          name="title"
-          required
-          maxLength={100}
-          placeholder="e.g. Street food tour around Gwangjang Market"
-          className={input}
-        />
+        {f.title}
+        <input name="title" required maxLength={100} placeholder={f.titlePlaceholder} className={input} />
       </label>
 
       <div className="grid grid-cols-2 gap-4">
         <label className="text-sm font-medium">
-          Area
-          <input name="area" required placeholder="e.g. Jongno, Hongdae" className={input} />
+          {f.area}
+          <input name="area" required placeholder={f.areaPlaceholder} className={input} />
         </label>
         <label className="text-sm font-medium">
-          Date
+          {f.date}
           <input name="travel_date" type="date" required min={today} className={input} />
         </label>
         <label className="text-sm font-medium">
-          Duration (hours)
+          {f.duration}
           <input name="duration_hours" type="number" min={1} max={12} defaultValue={3} className={input} />
         </label>
         <label className="text-sm font-medium">
-          Group size
+          {f.groupSize}
           <input name="group_size" type="number" min={1} max={20} defaultValue={1} className={input} />
         </label>
       </div>
 
       <fieldset>
-        <legend className="text-sm font-medium">Languages we speak</legend>
+        <legend className="text-sm font-medium">{f.languages}</legend>
         <div className="mt-2 flex flex-wrap gap-2">
           {LANGUAGE_OPTIONS.map((lang) => (
             <label
@@ -58,19 +55,19 @@ export function RequestForm({ defaultLanguages }: { defaultLanguages: string[] }
                 defaultChecked={defaultLanguages.includes(lang)}
                 className="sr-only"
               />
-              {lang}
+              {t.spokenLanguages[lang]}
             </label>
           ))}
         </div>
       </fieldset>
 
       <label className="text-sm font-medium">
-        What would you like to do?
+        {f.description}
         <textarea
           name="description"
           rows={5}
           maxLength={2000}
-          placeholder="Places you want to visit, interests, accessibility needs…"
+          placeholder={f.descriptionPlaceholder}
           className={input}
         />
       </label>
@@ -81,7 +78,7 @@ export function RequestForm({ defaultLanguages }: { defaultLanguages: string[] }
         disabled={pending}
         className="h-11 rounded-xl bg-rose-500 font-medium text-white hover:bg-rose-600 disabled:opacity-60"
       >
-        {pending ? "Posting…" : "Post request"}
+        {pending ? f.posting : f.post}
       </button>
     </form>
   );

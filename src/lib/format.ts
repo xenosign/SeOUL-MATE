@@ -1,22 +1,26 @@
-export function formatDate(date: string) {
-  return new Date(date + (date.length === 10 ? "T00:00:00" : "")).toLocaleDateString("en-US", {
-    month: "short",
-    day: "numeric",
-    year: "numeric",
-    weekday: "short",
+import { intlLocale, type Locale } from "@/i18n/config";
+import type { Dictionary } from "@/i18n/dictionaries/en";
+
+export function formatDate(date: string, locale: Locale) {
+  return new Date(date + (date.length === 10 ? "T00:00:00" : "")).toLocaleDateString(
+    intlLocale[locale],
+    { month: "short", day: "numeric", year: "numeric", weekday: "short" },
+  );
+}
+
+export function formatTime(iso: string, locale: Locale) {
+  return new Date(iso).toLocaleTimeString(intlLocale[locale], {
+    hour: "numeric",
+    minute: "2-digit",
   });
 }
 
-export function formatTime(iso: string) {
-  return new Date(iso).toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" });
+/** Localized, comma-separated names for spoken-language values stored in the DB */
+export function spokenLanguages(langs: string[], t: Dictionary) {
+  return langs
+    .map((l) => t.spokenLanguages[l as keyof Dictionary["spokenLanguages"]] ?? l)
+    .join(", ");
 }
-
-export const STATUS_LABEL = {
-  open: "Looking for a guide",
-  matched: "Matched",
-  completed: "Completed",
-  cancelled: "Cancelled",
-} as const;
 
 export const STATUS_STYLE = {
   open: "bg-emerald-50 text-emerald-700 ring-emerald-600/20",

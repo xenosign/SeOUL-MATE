@@ -13,6 +13,7 @@
 | 프레임워크 / 백엔드 | Next.js 16 (App Router, Server Actions, Route Handlers) |
 | DB / 인증 | Supabase (Postgres + RLS, Auth: Kakao·Google OAuth) |
 | 실시간 채팅 | Supabase Realtime (WebSocket) — 메시지 수신, 접속 상태(Presence), 입력 중 표시(Broadcast) |
+| 다국어 | English · 한국어 · 日本語 · 中文(简体) — 쿠키(`NEXT_LOCALE`) → 브라우저 `Accept-Language` 순으로 결정 |
 | 배포 | Vercel |
 
 > **왜 자체 WebSocket 서버가 아니라 Supabase Realtime인가?**
@@ -27,6 +28,7 @@ supabase/migrations/0001_init.sql   DB 스키마, RLS 정책, Realtime 설정
 src/proxy.ts                        (구 middleware) 세션 갱신 + 보호 경로 리다이렉트
 src/lib/supabase/                   서버/브라우저/프록시용 Supabase 클라이언트
 src/lib/auth.ts                     현재 사용자 프로필 조회 (DAL)
+src/i18n/                           언어 설정, 번역 사전(dictionaries/), 언어 전환 액션
 src/app/login/                      카카오·구글 로그인
 src/app/auth/callback/route.ts      OAuth code → 세션 교환
 src/app/profile/                    프로필 / 첫 로그인 온보딩(역할 선택)
@@ -95,7 +97,6 @@ http://localhost:3000 접속. 채팅 테스트는 브라우저 두 개(일반 �
 
 ## 다음에 해볼 만한 것
 
-- 다국어(i18n) UI (현재 영어 위주)
 - 새 메시지 알림 (Web Push / 이메일), 안 읽은 메시지 수
 - 가이드 후기·평점, 신고/차단 기능
 - PWA 설정(manifest, 아이콘)으로 홈 화면 설치 지원

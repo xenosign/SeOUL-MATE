@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
 import { requireProfile } from "@/lib/auth";
+import { getI18n } from "@/i18n/server";
 import { LANGUAGE_OPTIONS, type RequestStatus } from "@/lib/types";
 
 export type RequestFormState = { error?: string };
@@ -13,7 +14,8 @@ export async function createRequest(
   formData: FormData,
 ): Promise<RequestFormState> {
   const profile = await requireProfile();
-  if (profile.role !== "traveler") return { error: "Only travelers can post requests." };
+  const { t } = await getI18n();
+  if (profile.role !== "traveler") return { error: t.requests.errors.travelerOnly };
 
   const title = String(formData.get("title") ?? "").trim();
   const area = String(formData.get("area") ?? "").trim();
@@ -27,10 +29,10 @@ export async function createRequest(
     .filter((l) => (LANGUAGE_OPTIONS as readonly string[]).includes(l));
 
   if (!title || !area || !/^\d{4}-\d{2}-\d{2}$/.test(travelDate)) {
-    return { error: "Please fill in the title, area and date." };
+    return { error: t.requests.errors.required };
   }
   if (travelDate < new Date().toISOString().slice(0, 10)) {
-    return { error: "The date must be today or later." };
+    return { error: t.requests.errors.pastDate };
   }
 
   const supabase = await createClient();

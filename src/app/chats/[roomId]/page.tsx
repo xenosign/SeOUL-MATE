@@ -5,6 +5,8 @@ import { createClient } from "@/lib/supabase/server";
 import type { Message, Profile, RequestStatus } from "@/lib/types";
 import { Avatar } from "@/components/avatar";
 import { StatusBadge } from "@/components/status-badge";
+import { fmt } from "@/i18n/config";
+import { getI18n } from "@/i18n/server";
 import { ChatRoom } from "./chat-room";
 
 type Person = Pick<Profile, "id" | "display_name" | "avatar_url" | "contact">;
@@ -18,6 +20,7 @@ type RoomRow = {
 export default async function ChatRoomPage({ params }: PageProps<"/chats/[roomId]">) {
   const { roomId } = await params;
   const profile = await requireProfile();
+  const { t } = await getI18n();
   const supabase = await createClient();
 
   // RLS only returns the room if the current user is a participant
@@ -48,7 +51,7 @@ export default async function ChatRoomPage({ params }: PageProps<"/chats/[roomId
   return (
     <div className="mx-auto flex h-[calc(100dvh-3.5rem)] w-full max-w-3xl flex-col px-0 sm:px-4 sm:py-4">
       <div className="flex items-center gap-3 border-b border-zinc-200 bg-white px-4 py-3 sm:rounded-t-2xl sm:border">
-        <Link href="/chats" className="text-zinc-500 hover:text-zinc-900" aria-label="Back to chats">
+        <Link href="/chats" className="text-zinc-500 hover:text-zinc-900" aria-label={t.chats.backToChats}>
           ←
         </Link>
         <Avatar src={other.avatar_url} name={other.display_name} size={36} />
@@ -61,12 +64,12 @@ export default async function ChatRoomPage({ params }: PageProps<"/chats/[roomId
             {room.request.title}
           </Link>
         </div>
-        <StatusBadge status={room.request.status} />
+        <StatusBadge status={room.request.status} t={t} />
       </div>
 
       {other.contact && (
         <p className="border-x border-zinc-200 bg-amber-50 px-4 py-2 text-xs text-amber-800">
-          {other.display_name}&apos;s contact: <span className="font-medium">{other.contact}</span>
+          {fmt(t.chats.contact, { name: other.display_name })} <span className="font-medium">{other.contact}</span>
         </p>
       )}
 

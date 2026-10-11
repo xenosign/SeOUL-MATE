@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
 import { LANGUAGE_OPTIONS, type UserRole } from "@/lib/types";
+import { getI18n } from "@/i18n/server";
 
 export type ProfileFormState = { error?: string; saved?: boolean };
 
@@ -15,13 +16,14 @@ export async function updateProfile(
   const { data } = await supabase.auth.getClaims();
   const userId = data?.claims?.sub;
   if (!userId) redirect("/login");
+  const { t } = await getI18n();
 
   const role = formData.get("role");
   if (role !== "traveler" && role !== "guide") {
-    return { error: "Please choose whether you are a traveler or a guide." };
+    return { error: t.profile.errors.role };
   }
   const displayName = String(formData.get("display_name") ?? "").trim();
-  if (!displayName) return { error: "Please enter your name." };
+  if (!displayName) return { error: t.profile.errors.name };
 
   const languages = formData
     .getAll("languages")

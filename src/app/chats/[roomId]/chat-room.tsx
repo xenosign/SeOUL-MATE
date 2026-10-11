@@ -6,6 +6,8 @@ import { createClient } from "@/lib/supabase/client";
 import { formatTime } from "@/lib/format";
 import type { Message } from "@/lib/types";
 import { Avatar } from "@/components/avatar";
+import { fmt } from "@/i18n/config";
+import { useI18n } from "@/i18n/client";
 
 type Props = {
   roomId: string;
@@ -23,6 +25,7 @@ const TYPING_TIMEOUT_MS = 3000;
  * - broadcast: ephemeral "typing…" events
  */
 export function ChatRoom({ roomId, me, other, initialMessages }: Props) {
+  const { locale, t } = useI18n();
   const [supabase] = useState(createClient);
   const [messages, setMessages] = useState<Message[]>(initialMessages);
   const [draft, setDraft] = useState("");
@@ -118,7 +121,7 @@ export function ChatRoom({ roomId, me, other, initialMessages }: Props) {
     <>
       <div className="flex-1 overflow-y-auto border-zinc-200 bg-zinc-50 px-4 py-4 sm:border-x">
         <p className="mb-4 text-center text-xs text-zinc-400">
-          {otherOnline ? `🟢 ${other.display_name} is here` : `${other.display_name} is offline`}
+          {fmt(otherOnline ? t.chats.online : t.chats.offline, { name: other.display_name })}
         </p>
         <ul className="flex flex-col gap-2">
           {messages.map((m, i) => {
@@ -131,7 +134,7 @@ export function ChatRoom({ roomId, me, other, initialMessages }: Props) {
                     {showAvatar && <Avatar src={other.avatar_url} name={other.display_name} size={28} />}
                   </span>
                 )}
-                {mine && <time className="text-[10px] text-zinc-400">{formatTime(m.created_at)}</time>}
+                {mine && <time className="text-[10px] text-zinc-400">{formatTime(m.created_at, locale)}</time>}
                 <p
                   className={`max-w-[75%] whitespace-pre-wrap break-words rounded-2xl px-3 py-2 text-sm ${
                     mine ? "rounded-br-sm bg-rose-500 text-white" : "rounded-bl-sm bg-white text-zinc-900 shadow-sm"
@@ -139,13 +142,13 @@ export function ChatRoom({ roomId, me, other, initialMessages }: Props) {
                 >
                   {m.content}
                 </p>
-                {!mine && <time className="text-[10px] text-zinc-400">{formatTime(m.created_at)}</time>}
+                {!mine && <time className="text-[10px] text-zinc-400">{formatTime(m.created_at, locale)}</time>}
               </li>
             );
           })}
         </ul>
         {otherTyping && (
-          <p className="mt-2 pl-9 text-xs text-zinc-400">{other.display_name} is typing…</p>
+          <p className="mt-2 pl-9 text-xs text-zinc-400">{fmt(t.chats.typing, { name: other.display_name })}</p>
         )}
         <div ref={bottomRef} />
       </div>
@@ -168,14 +171,14 @@ export function ChatRoom({ roomId, me, other, initialMessages }: Props) {
           }}
           rows={1}
           maxLength={2000}
-          placeholder="Type a message…"
+          placeholder={t.chats.placeholder}
           className="max-h-32 flex-1 resize-none rounded-xl border border-zinc-300 px-3 py-2 text-sm outline-none focus:border-rose-400 focus:ring-2 focus:ring-rose-100"
         />
         <button
           disabled={sending || !draft.trim()}
           className="rounded-xl bg-rose-500 px-4 text-sm font-medium text-white hover:bg-rose-600 disabled:opacity-50"
         >
-          Send
+          {t.chats.send}
         </button>
       </form>
     </>

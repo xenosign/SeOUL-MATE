@@ -4,6 +4,7 @@ import { createClient } from "@/lib/supabase/server";
 import { formatTime } from "@/lib/format";
 import type { Message, Profile } from "@/lib/types";
 import { Avatar } from "@/components/avatar";
+import { getI18n } from "@/i18n/server";
 
 type Person = Pick<Profile, "id" | "display_name" | "avatar_url">;
 type RoomRow = {
@@ -16,6 +17,7 @@ type RoomRow = {
 
 export default async function ChatsPage() {
   const profile = await requireProfile();
+  const { locale, t } = await getI18n();
   const supabase = await createClient();
 
   const { data } = await supabase
@@ -54,12 +56,10 @@ export default async function ChatsPage() {
 
   return (
     <div className="mx-auto w-full max-w-3xl px-4 py-10">
-      <h1 className="text-2xl font-bold tracking-tight">Chats</h1>
+      <h1 className="text-2xl font-bold tracking-tight">{t.chats.title}</h1>
       {sorted.length === 0 ? (
         <p className="mt-6 rounded-2xl border border-dashed border-zinc-300 p-10 text-center text-sm text-zinc-500">
-          {profile.role === "guide"
-            ? "Open a traveler's request and send a message to start chatting."
-            : "When a volunteer messages you, the conversation will appear here."}
+          {profile.role === "guide" ? t.chats.emptyGuide : t.chats.emptyTraveler}
         </p>
       ) : (
         <ul className="mt-6 divide-y divide-zinc-200 overflow-hidden rounded-2xl border border-zinc-200 bg-white">
@@ -73,12 +73,12 @@ export default async function ChatsPage() {
                     <div className="flex items-baseline justify-between gap-2">
                       <p className="truncate font-medium">{other.display_name}</p>
                       {last && (
-                        <span className="shrink-0 text-xs text-zinc-400">{formatTime(last.created_at)}</span>
+                        <span className="shrink-0 text-xs text-zinc-400">{formatTime(last.created_at, locale)}</span>
                       )}
                     </div>
                     <p className="truncate text-xs text-zinc-500">{room.request?.title}</p>
                     <p className="mt-0.5 truncate text-sm text-zinc-700">
-                      {last ? last.content : <span className="text-zinc-400">No messages yet</span>}
+                      {last ? last.content : <span className="text-zinc-400">{t.chats.noMessages}</span>}
                     </p>
                   </div>
                 </Link>

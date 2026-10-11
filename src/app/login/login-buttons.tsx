@@ -2,10 +2,12 @@
 
 import { useState } from "react";
 import { createClient } from "@/lib/supabase/client";
+import { useI18n } from "@/i18n/client";
 
 type Provider = "google" | "kakao";
 
 export function LoginButtons({ next }: { next?: string }) {
+  const { t } = useI18n();
   const [pending, setPending] = useState<Provider | null>(null);
 
   async function signIn(provider: Provider) {
@@ -32,7 +34,7 @@ export function LoginButtons({ next }: { next?: string }) {
         className="flex h-12 items-center justify-center gap-2 rounded-xl bg-[#FEE500] font-medium text-black/85 transition hover:brightness-95 disabled:opacity-60"
       >
         <KakaoIcon />
-        {pending === "kakao" ? "Redirecting…" : "Continue with Kakao"}
+        {pending === "kakao" ? t.login.redirecting : t.login.kakao}
       </button>
       <button
         onClick={() => signIn("google")}
@@ -40,7 +42,7 @@ export function LoginButtons({ next }: { next?: string }) {
         className="flex h-12 items-center justify-center gap-2 rounded-xl border border-zinc-300 bg-white font-medium text-zinc-800 transition hover:bg-zinc-50 disabled:opacity-60"
       >
         <GoogleIcon />
-        {pending === "google" ? "Redirecting…" : "Continue with Google"}
+        {pending === "google" ? t.login.redirecting : t.login.google}
       </button>
     </div>
   );
