@@ -29,20 +29,20 @@ export function LoginButtons({ next }: { next?: string }) {
   return (
     <div className="mt-8 flex flex-col gap-3">
       <button
-        onClick={() => signIn("kakao")}
-        disabled={pending !== null}
-        className="flex h-12 items-center justify-center gap-2 rounded-xl bg-[#FEE500] font-medium text-black/85 transition hover:brightness-95 disabled:opacity-60"
-      >
-        <KakaoIcon />
-        {pending === "kakao" ? t.login.redirecting : t.login.kakao}
-      </button>
-      <button
         onClick={() => signIn("google")}
         disabled={pending !== null}
         className="flex h-12 items-center justify-center gap-2 rounded-xl border border-zinc-300 bg-white font-medium text-zinc-800 transition hover:bg-zinc-50 disabled:opacity-60"
       >
         <GoogleIcon />
         {pending === "google" ? t.login.redirecting : t.login.google}
+      </button>
+      <button
+        onClick={() => signIn("kakao")}
+        disabled={pending !== null}
+        className="flex h-12 items-center justify-center gap-2 rounded-xl bg-[#FEE500] font-medium text-black/85 transition hover:brightness-95 disabled:opacity-60"
+      >
+        <KakaoIcon />
+        {pending === "kakao" ? t.login.redirecting : t.login.kakao}
       </button>
     </div>
   );
