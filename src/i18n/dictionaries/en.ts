@@ -60,7 +60,10 @@ const en = {
     aboutPlaceholder: "Interests, favorite places in Seoul, travel style…",
     contact: "Other contact",
     contactHint: "(optional, shown to chat partners)",
-    contactPlaceholder: "KakaoTalk ID, Instagram, WhatsApp…",
+    contactPlaceholder: "KakaoTalk ID, WhatsApp, LINE…",
+    instagram: "Instagram",
+    instagramHint: "(required, shown to chat partners)",
+    instagramPlaceholder: "your_instagram_id",
     saved: "Saved!",
     saving: "Saving…",
     continue: "Continue",
@@ -68,6 +71,8 @@ const en = {
     errors: {
       role: "Please choose whether you are a traveler or a guide.",
       name: "Please enter your name.",
+      instagram: "Please enter a valid Instagram username (letters, numbers, . and _).",
+      instagramTaken: "This Instagram account is already linked to another profile.",
     },
   },
   requests: {

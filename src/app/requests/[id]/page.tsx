@@ -5,6 +5,7 @@ import { createClient } from "@/lib/supabase/server";
 import { formatDate, spokenLanguages } from "@/lib/format";
 import type { GuideRequest, Profile } from "@/lib/types";
 import { Avatar } from "@/components/avatar";
+import { InstagramLink } from "@/components/instagram-link";
 import { StatusBadge } from "@/components/status-badge";
 import { fmt } from "@/i18n/config";
 import type { Dictionary } from "@/i18n/dictionaries/en";
@@ -13,10 +14,10 @@ import { acceptGuide, setRequestStatus, startChat } from "../actions";
 
 type PublicProfile = Pick<
   Profile,
-  "id" | "display_name" | "avatar_url" | "nationality" | "languages" | "bio"
+  "id" | "display_name" | "avatar_url" | "nationality" | "languages" | "bio" | "instagram"
 >;
 
-const PROFILE_FIELDS = "id, display_name, avatar_url, nationality, languages, bio";
+const PROFILE_FIELDS = "id, display_name, avatar_url, nationality, languages, bio, instagram";
 
 export default async function RequestDetailPage({ params }: PageProps<"/requests/[id]">) {
   const { id } = await params;
@@ -113,6 +114,9 @@ export default async function RequestDetailPage({ params }: PageProps<"/requests
                         <p className="truncate text-xs text-zinc-500">
                           {spokenLanguages(room.guide.languages, t) || "—"}
                         </p>
+                        {room.guide.instagram && (
+                          <InstagramLink username={room.guide.instagram} className="text-xs" />
+                        )}
                       </div>
                       <Link
                         href={`/chats/${room.id}`}
@@ -174,6 +178,7 @@ function ProfileCard({ title, person, t }: { title: string; person: PublicProfil
           <p className="text-sm text-zinc-500">
             {[person.nationality, spokenLanguages(person.languages, t)].filter(Boolean).join(" · ")}
           </p>
+          {person.instagram && <InstagramLink username={person.instagram} className="text-sm" />}
         </div>
       </div>
       {person.bio && <p className="mt-3 whitespace-pre-wrap text-sm text-zinc-700">{person.bio}</p>}

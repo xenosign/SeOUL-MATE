@@ -5,11 +5,12 @@ import { createClient } from "@/lib/supabase/server";
 import type { Message, Profile, RequestStatus } from "@/lib/types";
 import { Avatar } from "@/components/avatar";
 import { StatusBadge } from "@/components/status-badge";
+import { InstagramLink } from "@/components/instagram-link";
 import { fmt } from "@/i18n/config";
 import { getI18n } from "@/i18n/server";
 import { ChatRoom } from "./chat-room";
 
-type Person = Pick<Profile, "id" | "display_name" | "avatar_url" | "contact">;
+type Person = Pick<Profile, "id" | "display_name" | "avatar_url" | "contact" | "instagram">;
 type RoomRow = {
   id: string;
   request: { id: string; title: string; status: RequestStatus; matched_guide_id: string | null };
@@ -29,8 +30,8 @@ export default async function ChatRoomPage({ params }: PageProps<"/chats/[roomId
     .select(
       `id,
        request:guide_requests(id, title, status, matched_guide_id),
-       traveler:profiles!traveler_id(id, display_name, avatar_url, contact),
-       guide:profiles!guide_id(id, display_name, avatar_url, contact)`,
+       traveler:profiles!traveler_id(id, display_name, avatar_url, contact, instagram),
+       guide:profiles!guide_id(id, display_name, avatar_url, contact, instagram)`,
     )
     .eq("id", roomId)
     .maybeSingle();
@@ -56,7 +57,10 @@ export default async function ChatRoomPage({ params }: PageProps<"/chats/[roomId
         </Link>
         <Avatar src={other.avatar_url} name={other.display_name} size={36} />
         <div className="min-w-0 flex-1">
-          <p className="truncate font-medium">{other.display_name}</p>
+          <p className="flex items-baseline gap-2 truncate font-medium">
+            {other.display_name}
+            {other.instagram && <InstagramLink username={other.instagram} className="text-xs font-normal" />}
+          </p>
           <Link
             href={`/requests/${room.request.id}`}
             className="block truncate text-xs text-zinc-500 hover:underline"

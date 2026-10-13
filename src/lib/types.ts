@@ -10,6 +10,7 @@ export type Profile = {
   languages: string[];
   bio: string | null;
   contact: string | null;
+  instagram: string | null;
 };
 
 export type GuideRequest = {

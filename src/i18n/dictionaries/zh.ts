@@ -60,7 +60,10 @@ const zh: Dictionary = {
     aboutPlaceholder: "兴趣爱好、喜欢的首尔景点、旅行风格…",
     contact: "其他联系方式",
     contactHint: "(选填,聊天对象可见)",
-    contactPlaceholder: "KakaoTalk ID、微信、Instagram…",
+    contactPlaceholder: "KakaoTalk ID、微信、WhatsApp…",
+    instagram: "Instagram",
+    instagramHint: "(必填,聊天对象可见)",
+    instagramPlaceholder: "你的 Instagram 用户名",
     saved: "已保存!",
     saving: "保存中…",
     continue: "继续",
@@ -68,6 +71,8 @@ const zh: Dictionary = {
     errors: {
       role: "请选择你是游客还是向导。",
       name: "请输入你的姓名。",
+      instagram: "请输入有效的 Instagram 用户名(仅限字母、数字、. 和 _)。",
+      instagramTaken: "该 Instagram 账号已绑定到其他资料。",
     },
   },
   requests: {

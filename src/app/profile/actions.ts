@@ -5,6 +5,7 @@ import { revalidatePath } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
 import { LANGUAGE_OPTIONS, type UserRole } from "@/lib/types";
 import { getI18n } from "@/i18n/server";
+import { normalizeInstagram } from "@/lib/instagram";
 
 export type ProfileFormState = { error?: string; saved?: boolean };
 
@@ -24,6 +25,8 @@ export async function updateProfile(
   }
   const displayName = String(formData.get("display_name") ?? "").trim();
   if (!displayName) return { error: t.profile.errors.name };
+  const instagram = normalizeInstagram(String(formData.get("instagram") ?? ""));
+  if (!instagram) return { error: t.profile.errors.instagram };
 
   const languages = formData
     .getAll("languages")
@@ -38,11 +41,16 @@ export async function updateProfile(
       nationality: String(formData.get("nationality") ?? "").trim().slice(0, 50) || null,
       bio: String(formData.get("bio") ?? "").trim().slice(0, 500) || null,
       contact: String(formData.get("contact") ?? "").trim().slice(0, 100) || null,
+      instagram,
       languages,
     })
     .eq("id", userId);
 
-  if (error) return { error: error.message };
+  if (error) {
+    // unique index profiles_instagram_key
+    if (error.code === "23505") return { error: t.profile.errors.instagramTaken };
+    return { error: error.message };
+  }
 
   revalidatePath("/", "layout");
   if (formData.get("onboarding")) redirect(role === "traveler" ? "/requests/new" : "/requests");

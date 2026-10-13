@@ -39,7 +39,7 @@ src/app/chats/                      채팅 목록, 실시간 채팅방
 ## 1. Supabase 설정
 
 1. [Supabase](https://supabase.com/dashboard)에서 프로젝트 생성
-2. **SQL Editor**에서 `supabase/migrations/0001_init.sql` 전체 실행
+2. **SQL Editor**에서 `supabase/migrations/` 의 SQL 파일을 번호 순서대로 실행 (`0001_init.sql` → `0002_profiles_instagram.sql`)
    (Supabase CLI 사용 시 `supabase link` 후 `supabase db push`)
 3. **Project Settings → API**에서 Project URL과 Publishable key(또는 anon key) 복사
 4. **Authentication → URL Configuration**
@@ -88,7 +88,7 @@ http://localhost:3000 접속. 채팅 테스트는 브라우저 두 개(일반 �
 
 ## 데이터 모델
 
-- `profiles` — 사용자 프로필 (가입 시 트리거로 자동 생성, 역할 `traveler | guide`)
+- `profiles` — 사용자 프로필 (가입 시 트리거로 자동 생성, 역할 `traveler | guide`, 인스타그램 아이디는 온보딩에서 필수 입력)
 - `guide_requests` — 여행객의 가이드 요청 (`open → matched → completed`, 또는 `cancelled`)
 - `chat_rooms` — 요청별 여행객·가이드 1:1 채팅방 (가이드만 생성 가능)
 - `messages` — 채팅 메시지 (Realtime publication 등록)

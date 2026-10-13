@@ -61,7 +61,10 @@ const ko: Dictionary = {
     aboutPlaceholder: "관심사, 서울에서 좋아하는 장소, 여행 스타일…",
     contact: "기타 연락처",
     contactHint: "(선택, 채팅 상대에게 표시)",
-    contactPlaceholder: "카카오톡 ID, 인스타그램, WhatsApp…",
+    contactPlaceholder: "카카오톡 ID, WhatsApp, LINE…",
+    instagram: "인스타그램",
+    instagramHint: "(필수, 채팅 상대에게 표시)",
+    instagramPlaceholder: "인스타그램 아이디",
     saved: "저장했어요!",
     saving: "저장 중…",
     continue: "계속",
@@ -69,6 +72,8 @@ const ko: Dictionary = {
     errors: {
       role: "여행객인지 가이드인지 선택해 주세요.",
       name: "이름을 입력해 주세요.",
+      instagram: "올바른 인스타그램 아이디를 입력해 주세요 (영문, 숫자, . 과 _ 만 가능).",
+      instagramTaken: "이미 다른 프로필에 연결된 인스타그램 계정이에요.",
     },
   },
   requests: {

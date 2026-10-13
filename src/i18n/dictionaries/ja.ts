@@ -62,7 +62,10 @@ const ja: Dictionary = {
     aboutPlaceholder: "趣味、ソウルで好きな場所、旅行スタイルなど…",
     contact: "その他の連絡先",
     contactHint: "(任意、チャット相手に表示)",
-    contactPlaceholder: "KakaoTalk ID、Instagram、LINE…",
+    contactPlaceholder: "KakaoTalk ID、LINE、WhatsApp…",
+    instagram: "Instagram",
+    instagramHint: "(必須、チャット相手に表示)",
+    instagramPlaceholder: "Instagramのユーザーネーム",
     saved: "保存しました!",
     saving: "保存中…",
     continue: "続ける",
@@ -70,6 +73,8 @@ const ja: Dictionary = {
     errors: {
       role: "旅行者かガイドかを選択してください。",
       name: "名前を入力してください。",
+      instagram: "正しいInstagramのユーザーネームを入力してください(英数字、. と _ のみ)。",
+      instagramTaken: "このInstagramアカウントは既に別のプロフィールに登録されています。",
     },
   },
   requests: {

@@ -13,17 +13,17 @@ export const getCurrentProfile = cache(async (): Promise<Profile | null> => {
 
   const { data: profile } = await supabase
     .from("profiles")
-    .select("id, display_name, avatar_url, role, nationality, languages, bio, contact")
+    .select("id, display_name, avatar_url, role, nationality, languages, bio, contact, instagram")
     .eq("id", userId)
     .single();
 
   return (profile as Profile | null) ?? null;
 });
 
-/** Requires a signed-in user who has finished onboarding (picked a role). */
+/** Requires a signed-in user who has finished onboarding (picked a role, entered Instagram). */
 export async function requireProfile(): Promise<Profile & { role: NonNullable<Profile["role"]> }> {
   const profile = await getCurrentProfile();
   if (!profile) redirect("/login");
-  if (!profile.role) redirect("/profile?onboarding=1");
+  if (!profile.role || !profile.instagram) redirect("/profile?onboarding=1");
   return profile as Profile & { role: NonNullable<Profile["role"]> };
 }

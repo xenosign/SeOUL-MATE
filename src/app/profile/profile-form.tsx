@@ -47,6 +47,25 @@ export function ProfileForm({ profile, onboarding }: { profile: Profile; onboard
       </label>
 
       <label className="text-sm font-medium">
+        {t.profile.instagram}{" "}
+        <span className="font-normal text-zinc-500">{t.profile.instagramHint}</span>
+        <div className="mt-1 flex items-center rounded-lg border border-zinc-300 bg-white focus-within:border-brand-400 focus-within:ring-2 focus-within:ring-brand-100">
+          <span className="pl-3 text-sm text-zinc-400">@</span>
+          <input
+            name="instagram"
+            defaultValue={profile.instagram ?? ""}
+            required
+            maxLength={100}
+            autoCapitalize="none"
+            autoCorrect="off"
+            spellCheck={false}
+            placeholder={t.profile.instagramPlaceholder}
+            className="w-full rounded-lg bg-transparent px-1 py-2 text-sm outline-none"
+          />
+        </div>
+      </label>
+
+      <label className="text-sm font-medium">
         {t.profile.nationality}
         <input
           name="nationality"
