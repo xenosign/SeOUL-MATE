@@ -63,7 +63,7 @@ const ko: Dictionary = {
     contactHint: "(선택, 채팅 상대에게 표시)",
     contactPlaceholder: "카카오톡 ID, WhatsApp, LINE…",
     instagram: "인스타그램",
-    instagramHint: "(필수, 채팅 상대에게 표시)",
+    instagramHint: "(선택, 채팅 상대에게 표시)",
     instagramPlaceholder: "인스타그램 아이디",
     saved: "저장했어요!",
     saving: "저장 중…",

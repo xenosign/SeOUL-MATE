@@ -25,8 +25,10 @@ export async function updateProfile(
   }
   const displayName = String(formData.get("display_name") ?? "").trim();
   if (!displayName) return { error: t.profile.errors.name };
-  const instagram = normalizeInstagram(String(formData.get("instagram") ?? ""));
-  if (!instagram) return { error: t.profile.errors.instagram };
+  // Optional: empty → null, otherwise must be a valid username
+  const instagramInput = String(formData.get("instagram") ?? "").trim();
+  const instagram = instagramInput ? normalizeInstagram(instagramInput) : null;
+  if (instagramInput && !instagram) return { error: t.profile.errors.instagram };
 
   const languages = formData
     .getAll("languages")

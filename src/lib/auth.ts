@@ -20,10 +20,10 @@ export const getCurrentProfile = cache(async (): Promise<Profile | null> => {
   return (profile as Profile | null) ?? null;
 });
 
-/** Requires a signed-in user who has finished onboarding (picked a role, entered Instagram). */
+/** Requires a signed-in user who has finished onboarding (picked a role). */
 export async function requireProfile(): Promise<Profile & { role: NonNullable<Profile["role"]> }> {
   const profile = await getCurrentProfile();
   if (!profile) redirect("/login");
-  if (!profile.role || !profile.instagram) redirect("/profile?onboarding=1");
+  if (!profile.role) redirect("/profile?onboarding=1");
   return profile as Profile & { role: NonNullable<Profile["role"]> };
 }

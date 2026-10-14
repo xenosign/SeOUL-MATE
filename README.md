@@ -88,7 +88,7 @@ http://localhost:3000 접속. 채팅 테스트는 브라우저 두 개(일반 �
 
 ## 데이터 모델
 
-- `profiles` — 사용자 프로필 (가입 시 트리거로 자동 생성, 역할 `traveler | guide`, 인스타그램 아이디는 온보딩에서 필수 입력)
+- `profiles` — 사용자 프로필 (가입 시 트리거로 자동 생성, 역할 `traveler | guide`, 인스타그램 아이디는 프로필에서 선택 입력)
 - `guide_requests` — 여행객의 가이드 요청 (`open → matched → completed`, 또는 `cancelled`)
 - `chat_rooms` — 요청별 여행객·가이드 1:1 채팅방 (가이드만 생성 가능)
 - `messages` — 채팅 메시지 (Realtime publication 등록)

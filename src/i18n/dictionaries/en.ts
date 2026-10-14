@@ -62,7 +62,7 @@ const en = {
     contactHint: "(optional, shown to chat partners)",
     contactPlaceholder: "KakaoTalk ID, WhatsApp, LINE…",
     instagram: "Instagram",
-    instagramHint: "(required, shown to chat partners)",
+    instagramHint: "(optional, shown to chat partners)",
     instagramPlaceholder: "your_instagram_id",
     saved: "Saved!",
     saving: "Saving…",

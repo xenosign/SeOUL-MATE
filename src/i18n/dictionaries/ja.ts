@@ -64,7 +64,7 @@ const ja: Dictionary = {
     contactHint: "(任意、チャット相手に表示)",
     contactPlaceholder: "KakaoTalk ID、LINE、WhatsApp…",
     instagram: "Instagram",
-    instagramHint: "(必須、チャット相手に表示)",
+    instagramHint: "(任意、チャット相手に表示)",
     instagramPlaceholder: "Instagramのユーザーネーム",
     saved: "保存しました!",
     saving: "保存中…",

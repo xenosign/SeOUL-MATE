@@ -9,7 +9,7 @@ export default async function ProfilePage({ searchParams }: PageProps<"/profile"
   const [profile, { t }] = await Promise.all([getCurrentProfile(), getI18n()]);
   if (!profile) redirect("/login");
 
-  const isOnboarding = Boolean(onboarding) || !profile.role || !profile.instagram;
+  const isOnboarding = Boolean(onboarding) || !profile.role;
 
   return (
     <div className="mx-auto w-full max-w-xl px-4 py-10">

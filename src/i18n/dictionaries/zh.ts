@@ -62,7 +62,7 @@ const zh: Dictionary = {
     contactHint: "(选填,聊天对象可见)",
     contactPlaceholder: "KakaoTalk ID、微信、WhatsApp…",
     instagram: "Instagram",
-    instagramHint: "(必填,聊天对象可见)",
+    instagramHint: "(选填,聊天对象可见)",
     instagramPlaceholder: "你的 Instagram 用户名",
     saved: "已保存!",
     saving: "保存中…",

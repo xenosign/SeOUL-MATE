@@ -1,5 +1,5 @@
 -- Add Instagram username to profiles.
--- Collected during onboarding (required by the app); Kakao/Google OAuth does not provide it.
+-- Optional, entered by the user on the profile page; Kakao/Google OAuth does not provide it.
 -- Stored without the leading "@". Instagram usernames: letters, numbers, "." and "_", max 30 chars.
 
 alter table public.profiles

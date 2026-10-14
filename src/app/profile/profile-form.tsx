@@ -54,7 +54,6 @@ export function ProfileForm({ profile, onboarding }: { profile: Profile; onboard
           <input
             name="instagram"
             defaultValue={profile.instagram ?? ""}
-            required
             maxLength={100}
             autoCapitalize="none"
             autoCorrect="off"
