@@ -39,7 +39,7 @@ src/app/chats/                      채팅 목록, 실시간 채팅방
 ## 1. Supabase 설정
 
 1. [Supabase](https://supabase.com/dashboard)에서 프로젝트 생성
-2. **SQL Editor**에서 `supabase/migrations/` 의 SQL 파일을 번호 순서대로 실행 (`0001_init.sql` → `0002_profiles_instagram.sql`)
+2. **SQL Editor**에서 `supabase/migrations/` 의 SQL 파일을 번호 순서대로 실행 (`0001_init.sql` → `0002_profiles_instagram.sql` → `0003_signup_attributions_and_reports.sql`)
    (Supabase CLI 사용 시 `supabase link` 후 `supabase db push`)
 3. **Project Settings → API**에서 Project URL과 Publishable key(또는 anon key) 복사
 4. **Authentication → URL Configuration**
@@ -92,12 +92,22 @@ http://localhost:3000 접속. 채팅 테스트는 브라우저 두 개(일반 �
 - `guide_requests` — 여행객의 가이드 요청 (`open → matched → completed`, 또는 `cancelled`)
 - `chat_rooms` — 요청별 여행객·가이드 1:1 채팅방 (가이드만 생성 가능)
 - `messages` — 채팅 메시지 (Realtime publication 등록)
+- `signup_attributions` — 가입 경로(UTM). 온보딩 완료 시 1회 기록, 사용자는 읽을 수 없고 대시보드에서 확인
+- `reports` — 채팅 상대 신고. 신고 시점의 상대 이름·최근 메시지 50개를 스냅샷으로 보관(요청·계정이 삭제돼도 남음), 신고자당 하루 10건 제한, 신고자 본인만 조회 가능, `resolved_at`으로 처리 표시
+
+## 홍보 링크 규칙
+
+- **언어 지정**: `?lang=en|ko|ja|zh` 를 붙이면 해당 언어로 열리고 쿠키에 저장됩니다. 예) `https://<도메인>/?lang=ja`
+- **유입 추적**: `utm_source`(필수), `utm_medium`, `utm_campaign` 을 붙입니다. 값은 영문 소문자·숫자·`_`·`-`·`.` 만 씁니다.
+  첫 방문 값이 30일간 쿠키에 남고, 가입(온보딩 완료) 시 `signup_attributions`에 기록됩니다.
+  예) 인스타 프로필 링크 `/?utm_source=instagram&utm_medium=bio`, 호스텔 QR `/?lang=ja&utm_source=hostel&utm_campaign=hongdae_a`
+- **가이드 모집**: `/volunteer` (예: `/volunteer?lang=ko&utm_source=univ&utm_campaign=snu_buddy`)
 
 모든 테이블에 RLS가 적용되어 있어, 채팅방·메시지는 참여자만 읽고 쓸 수 있습니다.
 
 ## 다음에 해볼 만한 것
 
 - 새 메시지 알림 (Web Push / 이메일), 안 읽은 메시지 수
-- 가이드 후기·평점, 신고/차단 기능
+- 가이드 후기·평점, 차단 기능, 신고 처리 화면
 - PWA 설정(manifest, 아이콘)으로 홈 화면 설치 지원
 - `supabase gen types typescript`로 DB 타입 자동 생성

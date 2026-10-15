@@ -44,6 +44,16 @@ export type Message = {
   created_at: string;
 };
 
+export const REPORT_REASONS = [
+  "harassment",
+  "inappropriate",
+  "money",
+  "safety",
+  "spam",
+  "other",
+] as const;
+export type ReportReason = (typeof REPORT_REASONS)[number];
+
 export const LANGUAGE_OPTIONS = [
   "English",
   "Korean",

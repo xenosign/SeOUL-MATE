@@ -17,6 +17,12 @@ export default async function Home() {
           >
             {t.home.cta}
           </Link>
+          <Link
+            href="/volunteer"
+            className="rounded-xl border border-zinc-300 bg-white px-5 py-3 font-medium hover:bg-zinc-50"
+          >
+            {t.home.volunteerCta}
+          </Link>
         </div>
       </section>
 

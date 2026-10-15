@@ -5,11 +5,13 @@ import { Avatar } from "@/components/avatar";
 import { ProfileForm } from "./profile-form";
 
 export default async function ProfilePage({ searchParams }: PageProps<"/profile">) {
-  const { onboarding } = await searchParams;
+  const { onboarding, role } = await searchParams;
   const [profile, { t }] = await Promise.all([getCurrentProfile(), getI18n()]);
   if (!profile) redirect("/login");
 
   const isOnboarding = Boolean(onboarding) || !profile.role;
+  // /profile?role=guide from the volunteer page pre-selects the role for new users
+  const suggestedRole = role === "traveler" || role === "guide" ? role : null;
 
   return (
     <div className="mx-auto w-full max-w-xl px-4 py-10">
@@ -25,7 +27,7 @@ export default async function ProfilePage({ searchParams }: PageProps<"/profile"
         </div>
       </div>
 
-      <ProfileForm profile={profile} onboarding={isOnboarding} />
+      <ProfileForm profile={profile} onboarding={isOnboarding} suggestedRole={suggestedRole} />
 
       {!isOnboarding && (
         <form action="/auth/signout" method="post" className="mt-10 border-t border-zinc-200 pt-6">

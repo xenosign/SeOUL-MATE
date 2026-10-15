@@ -3,6 +3,11 @@ export type Locale = (typeof locales)[number];
 
 export const defaultLocale: Locale = "en";
 export const LOCALE_COOKIE = "NEXT_LOCALE";
+export const LOCALE_COOKIE_OPTIONS = {
+  path: "/",
+  maxAge: 60 * 60 * 24 * 365,
+  sameSite: "lax",
+} as const;
 
 export const localeNames: Record<Locale, string> = {
   en: "English",

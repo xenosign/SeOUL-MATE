@@ -69,6 +69,12 @@ export default async function ChatRoomPage({ params }: PageProps<"/chats/[roomId
           </Link>
         </div>
         <StatusBadge status={room.request.status} t={t} />
+        <Link
+          href={`/chats/${room.id}/report`}
+          className="shrink-0 text-xs text-zinc-400 hover:text-rose-600"
+        >
+          {t.report.link}
+        </Link>
       </div>
 
       {other.contact && (

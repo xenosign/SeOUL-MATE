@@ -1,11 +1,13 @@
 "use server";
 
+import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
 import { LANGUAGE_OPTIONS, type UserRole } from "@/lib/types";
 import { getI18n } from "@/i18n/server";
 import { normalizeInstagram } from "@/lib/instagram";
+import { parseAttribution, UTM_COOKIE } from "@/lib/acquisition";
 
 export type ProfileFormState = { error?: string; saved?: boolean };
 
@@ -55,6 +57,31 @@ export async function updateProfile(
   }
 
   revalidatePath("/", "layout");
-  if (formData.get("onboarding")) redirect(role === "traveler" ? "/requests/new" : "/requests");
+  if (formData.get("onboarding")) {
+    await recordSignupAttribution(supabase, userId, role);
+    redirect(role === "traveler" ? "/requests/new" : "/requests");
+  }
   return { saved: true };
+}
+
+/** Records the acquisition channel once, when onboarding finishes. Never blocks onboarding. */
+async function recordSignupAttribution(
+  supabase: Awaited<ReturnType<typeof createClient>>,
+  userId: string,
+  role: UserRole,
+) {
+  const cookieStore = await cookies();
+  const utm = parseAttribution(cookieStore.get(UTM_COOKIE)?.value);
+  // A row without utm_source counts as a direct / unknown signup
+  const { error } = await supabase.from("signup_attributions").insert({
+    user_id: userId,
+    role,
+    utm_source: utm?.source ?? null,
+    utm_medium: utm?.medium ?? null,
+    utm_campaign: utm?.campaign ?? null,
+    landing_path: utm?.landing ?? null,
+    first_visit_at: utm?.at ?? null,
+  });
+  // 23505: already recorded (e.g. onboarding form submitted twice)
+  if (!error || error.code === "23505") cookieStore.delete(UTM_COOKIE);
 }

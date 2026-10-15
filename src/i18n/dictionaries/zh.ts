@@ -19,6 +19,7 @@ const zh: Dictionary = {
     title: "和本地朋友一起看首尔。",
     intro: "SeOUL MATE 将来首尔旅行的游客与热爱介绍自己城市的韩国志愿者联系在一起。",
     cta: "我需要向导",
+    volunteerCta: "我想当志愿向导",
     steps: [
       {
         title: "发布请求",
@@ -142,6 +143,67 @@ const zh: Dictionary = {
     typing: "{name} 正在输入…",
     placeholder: "输入消息…",
     send: "发送",
+  },
+  volunteer: {
+    metaTitle: "招募志愿向导 — SeOUL MATE",
+    eyebrow: "招募志愿向导",
+    title: "带来自世界各地的游客认识首尔。",
+    intro:
+      "发挥你的外语能力，结交海外朋友，带游客发现你喜爱的首尔。无需任何经验。",
+    stepsTitle: "参与方式",
+    steps: [
+      {
+        title: "创建向导资料",
+        body: "用 Kakao 或 Google 登录，选择“志愿向导”，并添加你会说的语言。",
+      },
+      {
+        title: "寻找游客",
+        body: "浏览公开的请求，给日期和区域合适的游客发消息。",
+      },
+      {
+        title: "见面一起逛",
+        body: "游客接受后，在人多的公共场所见面，带他们逛首尔。",
+      },
+    ],
+    principlesTitle: "开始之前",
+    principles: [
+      "这是志愿服务：请勿因带路索取或收取任何金钱或费用。",
+      "请在人多的公共场所见面，并告诉你信任的人你的行程。",
+      "请友善、互相尊重。如感到不对劲，请离开并在聊天中举报。",
+    ],
+    cta: "注册成为志愿向导",
+    ctaGuide: "查看公开请求",
+    ctaSwitch: "你目前注册的身份是游客，可以在个人资料中更改身份。",
+    ctaProfile: "前往我的资料",
+  },
+  report: {
+    link: "举报",
+    title: "举报 {name}",
+    subtitle: "举报内容保密，不会告诉 {name} 是谁举报的。",
+    emergency:
+      "紧急情况请拨打 112（警察）。旅行中需要帮助可拨打 1330（韩国旅游咨询热线），提供中文、英语、日语服务。",
+    reason: "发生了什么？",
+    reasons: {
+      harassment: "骚扰或威胁",
+      inappropriate: "不当或色情信息",
+      money: "索要金钱或费用",
+      safety: "感到不安全",
+      spam: "垃圾信息或广告",
+      other: "其他",
+    },
+    details: "详细说明（选填）",
+    detailsPlaceholder: "什么时候发生了什么？",
+    submit: "提交举报",
+    sending: "提交中…",
+    done: "已收到你的举报，感谢告知。",
+    already: "你已在此聊天中举报过此用户。",
+    back: "返回聊天",
+    errors: {
+      reason: "请选择发生了什么。",
+      failed: "举报提交失败，请重试。",
+      noMessages: "对方在此聊天中发送消息后才能举报。",
+      limit: "你今天提交的举报过多，请明天再试。",
+    },
   },
   spokenLanguages: {
     English: "英语",

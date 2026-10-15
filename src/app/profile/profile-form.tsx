@@ -1,7 +1,7 @@
 "use client";
 
 import { useActionState } from "react";
-import { LANGUAGE_OPTIONS, type Profile } from "@/lib/types";
+import { LANGUAGE_OPTIONS, type Profile, type UserRole } from "@/lib/types";
 import { useI18n } from "@/i18n/client";
 import { updateProfile, type ProfileFormState } from "./actions";
 
@@ -10,7 +10,15 @@ const input =
 
 const ROLES = ["traveler", "guide"] as const;
 
-export function ProfileForm({ profile, onboarding }: { profile: Profile; onboarding: boolean }) {
+export function ProfileForm({
+  profile,
+  onboarding,
+  suggestedRole,
+}: {
+  profile: Profile;
+  onboarding: boolean;
+  suggestedRole: UserRole | null;
+}) {
   const { t } = useI18n();
   const [state, action, pending] = useActionState<ProfileFormState, FormData>(updateProfile, {});
 
@@ -30,7 +38,7 @@ export function ProfileForm({ profile, onboarding }: { profile: Profile; onboard
                 type="radio"
                 name="role"
                 value={role}
-                defaultChecked={profile.role === role}
+                defaultChecked={(profile.role ?? suggestedRole) === role}
                 className="sr-only"
                 required
               />

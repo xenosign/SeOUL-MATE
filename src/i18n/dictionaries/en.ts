@@ -19,6 +19,7 @@ const en = {
     intro:
       "SeOUL MATE connects travelers with Korean volunteers who love showing visitors around their city.",
     cta: "I need a guide",
+    volunteerCta: "I want to volunteer",
     steps: [
       {
         title: "Post a request",
@@ -142,6 +143,67 @@ const en = {
     typing: "{name} is typing…",
     placeholder: "Type a message…",
     send: "Send",
+  },
+  volunteer: {
+    metaTitle: "Volunteer as a local guide — SeOUL MATE",
+    eyebrow: "Volunteer guides wanted",
+    title: "Show Seoul to travelers from around the world.",
+    intro:
+      "Use your language skills, make friends from abroad, and help travelers discover the Seoul you love. No experience needed.",
+    stepsTitle: "How it works",
+    steps: [
+      {
+        title: "Create a guide profile",
+        body: "Sign in with Kakao or Google, choose “Volunteer guide” and add the languages you speak.",
+      },
+      {
+        title: "Find a traveler",
+        body: "Browse open requests and message travelers whose dates and neighborhoods fit you.",
+      },
+      {
+        title: "Meet up and explore",
+        body: "When the traveler accepts you, meet in a public place and show them around.",
+      },
+    ],
+    principlesTitle: "Before you start",
+    principles: [
+      "This is volunteering: never ask for or accept money or payment for guiding.",
+      "Meet in busy public places, and tell someone you trust where you're going.",
+      "Be kind and respectful. If anything feels wrong, leave and report it from the chat.",
+    ],
+    cta: "Sign up as a volunteer guide",
+    ctaGuide: "See open requests",
+    ctaSwitch: "You're signed up as a traveler. You can change your role on your profile.",
+    ctaProfile: "Go to my profile",
+  },
+  report: {
+    link: "Report",
+    title: "Report {name}",
+    subtitle: "Reports are private — {name} won't be told who reported them.",
+    emergency:
+      "In an emergency, call 112 (police). For travel help in English, Japanese or Chinese, call 1330 (Korea Travel Hotline).",
+    reason: "What happened?",
+    reasons: {
+      harassment: "Harassment or threats",
+      inappropriate: "Inappropriate or sexual messages",
+      money: "Asked for money or payment",
+      safety: "I felt unsafe",
+      spam: "Spam or advertising",
+      other: "Something else",
+    },
+    details: "Details (optional)",
+    detailsPlaceholder: "What happened, and when?",
+    submit: "Send report",
+    sending: "Sending…",
+    done: "Thank you. We've received your report.",
+    already: "You've already reported this person in this chat.",
+    back: "Back to chat",
+    errors: {
+      reason: "Please choose what happened.",
+      failed: "Couldn't send the report. Please try again.",
+      noMessages: "You can report someone after they have sent you a message in this chat.",
+      limit: "You've sent too many reports today. Please try again tomorrow.",
+    },
   },
   spokenLanguages: {
     English: "English",
