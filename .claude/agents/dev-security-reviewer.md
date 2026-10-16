@@ -1,6 +1,6 @@
 ---
 name: dev-security-reviewer
-description: 보안 점검이 필요할 때 사용. 마이그레이션(RLS 정책), Server Actions, Route Handlers, 인증·세션 흐름, 채팅/Realtime, 개인정보(contact, instagram 등) 노출과 관련된 변경 후 또는 배포 전에 호출한다. 읽기 전용이며 코드를 고치지 않고 발견 사항만 보고한다.
+description: 보안 점검이 필요할 때 사용. 마이그레이션(RLS 정책), Server Actions, Route Handlers, 인증·세션 흐름, 채팅/Realtime, 개인정보(contact, instagram, 가입 경로 UTM, 신고 스냅샷 등) 노출과 관련된 변경 후 또는 배포 전에 호출한다. 읽기 전용이며 코드를 고치지 않고 발견 사항만 보고한다.
 tools: Read, Grep, Glob, Bash
 model: opus
 ---
@@ -23,6 +23,9 @@ model: opus
 - 프로필처럼 `using (true)`로 열린 select가 민감 컬럼(contact, instagram 등)까지 노출하지 않는가.
 - `security definer` 함수에 `set search_path = ''`가 있고, 호출자 검증을 하는가.
 - Realtime publication에 올린 테이블의 RLS가 구독자에게도 맞게 적용되는가. Broadcast/Presence 채널이 참여자 외에도 열려 있지 않은가.
+- **`signup_attributions`** (0003): 의도는 "본인 행 insert만 가능, select 정책 없음(팀은 대시보드에서만 봄)"이다. 남의 `user_id`나 실제와 다른 `role`로 넣을 수 없는지, 이후 select·update 정책이 생겨 다른 사용자의 유입 경로가 보이지 않는지 본다.
+- **`reports`** (0003): 신고자는 자기 신고만 select하고, 신고당한 사람은 아무것도 보지 못해야 한다. 같은 방의 참여자가 그 방의 상대를, 상대가 메시지를 한 번 이상 보낸 경우에만 insert할 수 있는가. 사용자용 update/delete 정책이 없어 `resolved_at`이나 스냅샷을 고칠 수 없는가.
+- **`prepare_report` 트리거** (security definer): `created_at`·`resolved_at`·`reported_display_name`·`messages_snapshot`을 클라이언트 값과 관계없이 서버에서 덮어쓰는가. 하루 10건 제한을 동시 insert 등으로 우회할 수 없는가. 스냅샷에 해당 방의 메시지만 담기는가.
 
 **서버 코드 (`src/app/**/actions.ts`, `route.ts`, `src/lib/auth.ts`, `src/proxy.ts`)**
 - Server Action마다 `requireProfile()` 등으로 인증·역할을 검사하는가. RLS만 믿지 말고, RLS가 막지 못하는 로직이 있는지 본다.
@@ -30,6 +33,8 @@ model: opus
 - 리다이렉트 대상(`next` 파라미터 등)이 같은 사이트 상대 경로로 제한되는가.
 - `getClaims()`/`getUser()` 대신 검증되지 않은 세션 값을 신뢰하는 곳이 있는가.
 - 비밀 값(service role 키 등)이 클라이언트 번들이나 `NEXT_PUBLIC_*`로 새지 않는가.
+- **`src/proxy.ts`의 `?lang=`과 UTM 쿠키**: `lang`은 허용 목록(`isLocale`)을 통과한 값만 쿠키에 들어가는가. `src/lib/acquisition.ts`가 UTM 값과 랜딩 경로를 정규식으로 거르고, `sm_utm` 쿠키를 `httpOnly`·`sameSite=lax`로 두며, 다시 읽을 때(`parseAttribution`)도 검증하는가. 조작한 쿠키로 DB `check` 제약을 깨거나 다른 값을 넣을 수 있는가.
+- **신고 액션** (`src/app/chats/[roomId]/report/actions.ts`): `roomId`를 남의 방으로 바꾸면 RLS로 막히는가. 신고 대상이 항상 "그 방의 상대"로만 정해지는가. 오류 메시지로 방이 있는지나 상대 정보가 새지 않는가.
 
 **클라이언트 / 콘텐츠**
 - `dangerouslySetInnerHTML`, 사용자 입력으로 만든 URL(`href`, 이미지 src)에 XSS나 `javascript:` 링크 여지가 있는가.
@@ -37,6 +42,8 @@ model: opus
 
 **서비스 특성**
 - 매칭 전 사용자에게 연락처 같은 개인정보가 보이는가.
+- 신고 스냅샷(상대 이름, 최근 메시지 50개)은 요청이나 계정을 지워도 남는다(`on delete set null`). 팀 외에는 읽을 수 없는지 확인하고, 보관 기간과 파기 절차가 없으면 biz-trust-safety에 넘길 항목으로 적는다.
+- 가입 경로(UTM)는 `user_id`와 묶인 개인정보다. 사용자 화면이나 API 응답으로 노출되지 않는지 본다.
 - 신고/차단, 스팸 채팅, 대량 요청 생성 같은 남용에 대한 제한(rate limit, 개수 제한)이 있는가. 없으면 위험도와 함께 권고로 남긴다.
 
 ## 보고 형식
