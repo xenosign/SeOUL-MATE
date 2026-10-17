@@ -15,7 +15,7 @@ SeOUL MATE는 서울을 찾은 외국인 여행객과 현지 자원봉사 가이
 
 규칙 원문은 `README.md`의 "홍보 링크 규칙"이다. 게시물·QR·프로필 링크 초안에는 아래 형식으로 링크를 넣는다.
 - **언어 지정**: `?lang=en|ko|ja|zh`를 붙이면 첫 화면부터 그 언어로 열린다. 일본어 커뮤니티 게시물에는 `?lang=ja`, 중국어 채널에는 `?lang=zh`를 붙인다.
-- **UTM**: `utm_source`(필수), `utm_medium`, `utm_campaign`. 값은 영문 소문자·숫자·`_`·`-`·`.`만 쓴다(그 밖의 문자가 들어가면 기록되지 않음). 예) 인스타 프로필 `/?utm_source=instagram&utm_medium=bio`, 호스텔 QR `/?lang=ja&utm_source=hostel&utm_campaign=hongdae_a`.
+- **UTM**: `utm_source`(필수), `utm_medium`, `utm_campaign`. 값은 영문 소문자·숫자·`_`·`-`·`.`만 쓴다(그 밖의 문자가 들어가면 기록되지 않음). 예) 인스타 프로필 `/?utm_source=instagram&utm_medium=bio`, 호스텔 QR `/?lang=ja&utm_source=hostel&utm_campaign=h01`.
 - **가이드 모집 랜딩**: `/volunteer`. 가입 버튼이 (로그인 후) `/profile?role=guide`로 이어져 가이드 역할이 미리 선택된다. 예) `/volunteer?lang=ko&utm_source=univ&utm_campaign=snu_buddy`.
 - **측정 방식과 한계**: 첫 방문의 UTM만 30일간 쿠키에 남고(first-touch), **온보딩을 마친 사용자만** `signup_attributions`(`utm_source/medium/campaign`, `landing_path`, `first_visit_at`, `role`)에 기록된다. 가입하지 않은 방문 수, 클릭 수, 30일이 지난 뒤의 가입, 다른 기기에서 한 가입은 잡히지 않는다. 팀이 Supabase 대시보드에서 직접 조회해야 하고 앱 안에 통계 화면은 없다. 방문·클릭 수가 필요하면 각 플랫폼의 자체 통계를 함께 쓰거나 개발 스펙으로 요청한다.
 

@@ -100,7 +100,7 @@ http://localhost:3000 접속. 채팅 테스트는 브라우저 두 개(일반 �
 - **언어 지정**: `?lang=en|ko|ja|zh` 를 붙이면 해당 언어로 열리고 쿠키에 저장됩니다. 예) `https://<도메인>/?lang=ja`
 - **유입 추적**: `utm_source`(필수), `utm_medium`, `utm_campaign` 을 붙입니다. 값은 영문 소문자·숫자·`_`·`-`·`.` 만 씁니다.
   첫 방문 값이 30일간 쿠키에 남고, 가입(온보딩 완료) 시 `signup_attributions`에 기록됩니다.
-  예) 인스타 프로필 링크 `/?utm_source=instagram&utm_medium=bio`, 호스텔 QR `/?lang=ja&utm_source=hostel&utm_campaign=hongdae_a`
+  예) 인스타 프로필 링크 `/?utm_source=instagram&utm_medium=bio`, 호스텔 QR `/?lang=ja&utm_source=hostel&utm_campaign=h01`
 - **가이드 모집**: `/volunteer` (예: `/volunteer?lang=ko&utm_source=univ&utm_campaign=snu_buddy`)
 
 모든 테이블에 RLS가 적용되어 있어, 채팅방·메시지는 참여자만 읽고 쓸 수 있습니다.
